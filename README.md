@@ -16,6 +16,7 @@ Scikit-learn Classification models available to train are,
   - Support Vector Machine (SVM) - Support Vector Classification (SVC)
   - Logistic Regression (LR)
   - Random Forest (RF) - Random Forest Classifier
+  - Decision Tree - Decision Tree Classifier
   - Multi-layer Perceptron (MLP) - Multi-layer Perceptron Classifier
   - Stochastic Gradient Descent (SGD) - Stochastic Gradient Descent Classifier
 
