@@ -154,7 +154,7 @@ def home():
 
         You can upload `.csv` or `.xlsx` files. The columns / features in the files should be encoded i.e. should be integers.
 
-        The target column should also be encoded in integer values for **`Classification`** and float values for **`Regression`**.
+        The target column should also be encoded in integer values for **`Classification`** and float / int values for **`Regression`**.
         """
     )
 
