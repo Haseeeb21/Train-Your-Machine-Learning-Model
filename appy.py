@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 import joblib
 import pickle
 from streamlit_option_menu import option_menu
-
+import time
 
 # Loading CSV or Excel file
 def load_data(file):
@@ -66,13 +66,18 @@ def train_CL_model(data, target_col, test_size, classifier_name):
     else:
         raise ValueError("Classifier not supported")
 
+    start_time = time.time()  # Start time before training
+
     model.fit(X_train, y_train)
+
+    end_time = time.time()  # End time after training
+    training_time = end_time - start_time
 
     y_pred = model.predict(X_test)
 
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Classification Accuracy: {accuracy}")
-    return model, accuracy
+    return model, accuracy, training_time
 
 
 def train_RG_model(data, target_col, test_size, regressor_name):
@@ -116,13 +121,19 @@ def train_RG_model(data, target_col, test_size, regressor_name):
     else:
         raise ValueError("Regressor not supported")
 
+    start_time = time.time()  # Start time before training
+
     model.fit(X_train, y_train)
+
+    end_time = time.time()  # End time after training
+    training_time = end_time - start_time
+
     y_pred = model.predict(X_test)
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     print(f"Regression Mean Squared Error: {mse}")
     print(f"Regression R-squared Score: {r2}")
-    return model, mse, r2
+    return model, mse, r2, training_time
 
 
 
@@ -210,13 +221,16 @@ def classification():
                                         "MLP"], key='clf_classifier_name')
 
         if st.button("Train Model", key='clf_train_button'):
-            model, accuracy = train_CL_model(data, target_col, test_size, classifier_name)
+            model, accuracy, training_time = train_CL_model(data, target_col, test_size, classifier_name)
             st.session_state['clf_model'] = model
             st.session_state['clf_accuracy'] = accuracy
+            st.session_state['clf_training_time'] = training_time
             st.session_state['clf_trained'] = True
 
     if st.session_state.get('clf_trained', False):
         st.write(f"Model Accuracy: {st.session_state['clf_accuracy'] * 100:.2f}%")
+        st.write(f"Training Time: {st.session_state['clf_training_time']:.2f} seconds")
+
 
         model_filename = st.text_input("Enter model filename", classifier_name, key='clf_model_filename')
         model_extension = st.selectbox("Select model extension", ["Joblib", "Pickle"], key='clf_model_extension')
@@ -249,18 +263,22 @@ def regression():
                                       key='reg_regressor_name')
 
         if st.button("Train Model", key='reg_train_button'):
-            model, mse, r2 = train_RG_model(data, target_col, test_size, regressor_name)
+            model, mse, r2, training_time = train_RG_model(data, target_col, test_size, regressor_name)
             st.session_state['reg_model'] = model
             st.session_state['reg_mse'] = mse
             st.session_state['reg_r2'] = r2
+            st.session_state['reg_training_time'] = training_time
             st.session_state['reg_trained'] = True
 
     if st.session_state.get('reg_trained', False):
         st.write(f"Mean Squared Error: {st.session_state['reg_mse']}")
         st.write(f"R-squared: {st.session_state['reg_r2']:.2f}")
+        st.write(f"Training Time: {st.session_state['reg_training_time']:.2f} seconds")
+
 
         model_filename = st.text_input("Enter model filename", regressor_name, key='reg_model_filename')
         model_extension = st.selectbox("Select model extension", ["Joblib", "Pickle"], key='reg_model_extension')
+
 
         if st.button("Save Model", key='reg_save_button'):
             file_extension = '.joblib' if model_extension == 'Joblib' else '.pkl'
