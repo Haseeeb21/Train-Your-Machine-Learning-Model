@@ -15,7 +15,6 @@ The *csv* or *xlsx* files columns / features should be in Label Encoding format 
 
 
 
-
 Scikit-learn Classification models available to train are,
 
   - K Nearest Neighbor (KNN) - K Neighbor Classifier
