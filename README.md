@@ -26,7 +26,6 @@ Scikit-learn Classification models available to train are,
 
 
 
-
 ## Regression
 
 Scikit-learn Regression models available to train are,
