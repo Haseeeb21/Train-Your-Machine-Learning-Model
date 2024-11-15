@@ -24,7 +24,6 @@ Scikit-learn Classification models available to train are,
   - Stochastic Gradient Descent (SGD) - Stochastic Gradient Descent Classifier
 
 
-
 ## Regression
 
 Scikit-learn Regression models available to train are,
