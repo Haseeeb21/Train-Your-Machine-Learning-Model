@@ -23,7 +23,7 @@ Scikit-learn Classification models available to train are,
   - Multi-layer Perceptron (MLP) - Multi-layer Perceptron Classifier
   - Stochastic Gradient Descent (SGD) - Stochastic Gradient Descent Classifier
 
-## Regression
+## Regression 
 
 Scikit-learn Regression models available to train are,
 
