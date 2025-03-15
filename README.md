@@ -11,12 +11,6 @@ Few datasets are also uploaded to try out the webapp :)
 ok
 
 
-
-
-
-
-
-
 The *csv* or *xlsx* files columns / features should be in Label Encoding format to train the model. 
 
 ## Classification
